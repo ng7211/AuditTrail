@@ -1,0 +1,16 @@
+<div>
+    <section class="card" aria-labelledby="check-title">
+      <div class="card-heading"><span class="connection-icon" aria-hidden="true">↗</span><div><h2 id="check-title">Backend connection</h2></div></div>
+      <div class="status" [class.online]="state() === 'online'" [class.error]="state() === 'error'" role="status" aria-live="polite" aria-atomic="true" [attr.aria-busy]="state() === 'checking'">
+        <strong><span class="dot" aria-hidden="true"></span>@switch (state()) {
+          @case ('checking') { Checking connection… }
+          @case ('online') { Backend Online }
+          @case ('error') { Connection check failed }
+          @default { Ready to check }
+        }</strong>
+        <p>{{ message() }}</p>
+      </div>
+      <button type="button" (click)="checkConnection()" [disabled]="state() === 'checking'">{{ state() === 'checking' ? 'Checking…' : 'Check Backend Connection' }}<span aria-hidden="true">→</span></button>
+      @if (checkedAt()) { <p class="checked">Last completed check at {{ checkedAt() }}</p> }
+    </section>
+</div>
