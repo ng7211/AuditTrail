@@ -95,3 +95,14 @@ After deployment, open the returned HTTPS URL and click **Check Backend Connecti
 You should see **Backend Online**. In browser developer tools, the Network tab
 shows the `/health` request and its HTTP 200 response. Testing at the public cloud
 URL verifies Internet reachability; a local check only verifies your local setup.
+
+## Google Cloud Run
+
+The container reads the `PORT` environment variable at startup and defaults to
+8000 when it is absent. Cloud Run supplies `PORT` automatically, typically 8080.
+Keep the Cloud Run container port at 8080 and build from the root Dockerfile.
+Leave container command and argument overrides empty to use the image's startup
+command. After pushing a Dockerfile change, wait for a new image to be built and
+deploy that image; redeploying the old image does not include the change.
+
+See Google's [container runtime contract](https://docs.cloud.google.com/run/docs/container-contract).
